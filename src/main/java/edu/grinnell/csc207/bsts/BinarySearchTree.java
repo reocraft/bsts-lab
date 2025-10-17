@@ -68,7 +68,30 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param value the value to add to the tree
      */
     public void insert(T value) {
-        throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
+        if (this.root == null) {
+            this.root = new Node<T>(value);
+            return;
+        }
+        insertH(this.root, value);
+    }
+
+    public void insertH(Node<T> tr, T value) {
+
+        if (value.compareTo(tr.value) < 0) {
+            if (tr.left == null) {
+                tr.left = new Node<T>(value);
+            } else {
+                insertH(tr.left, value);
+            }
+        }
+        else {
+            if (tr.right == null) {
+                tr.right = new Node<T>(value);
+            } else {
+                insertH(tr.right, value);
+            }
+        }
     }
 
     ///// Part 1: Contains
@@ -78,8 +101,25 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return true iff this tree contains <code>v</code>
      */
     public boolean contains(T v) {
-        throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
+        return containsH(root, v);
     }
+
+    public boolean containsH(Node<T> node, T v) {
+        if (node == null) {
+            return false;
+        }
+        else if (node.value.equals(v)) {
+            return true;
+        } 
+        if (v.compareTo(node.value) < 0) {
+            return containsH(node.left, v);
+        }
+        else {
+            return containsH(node.right, v);
+        }
+    }
+
 
     ///// Part 2: Ordered Traversals
 
@@ -88,7 +128,24 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      */
     @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
+        StringBuffer sb = new StringBuffer("[");
+        toStringH(root, sb);
+        if (!sb.toString().equals("[")) {
+            sb.delete(sb.length() - 2, sb.length());
+        }
+        sb.append("]");
+        return sb.toString();
+    }
+
+    public void toStringH(Node<T> node, StringBuffer sb) {
+        if (node == null) {
+            return;
+        }
+        toStringH(node.left, sb);
+        sb.append(node.value);
+        sb.append(", ");
+        toStringH(node.right, sb);
     }
 
     /**
