@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.bsts;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * A binary tree that satisifies the binary search tree invariant.
@@ -152,7 +153,19 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @return a list contains the elements of this BST in-order.
      */
     public List<T> toList() {
-        throw new UnsupportedOperationException();
+        // throw new UnsupportedOperationException();
+        List<T> lst = new ArrayList<>();
+        toListH(root, lst);
+        return lst;
+    }
+
+    public void toListH(Node<T> node, List<T> lst) {
+        if (node == null) {
+            return;
+        }
+        toListH(node.left, lst);
+        lst.add(node.value);
+        toListH(node.right, lst);
     }
 
     ///// Part 3: BST Sorting
