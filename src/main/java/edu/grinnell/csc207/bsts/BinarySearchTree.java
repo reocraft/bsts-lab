@@ -174,12 +174,15 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
      * @param <T> the carrier type of the lists
      * @param lst the list to sort
      * @return a copy of <code>lst</code> but sorted
-     * @implSpec <code>sort</code> runs in ___ time if the tree remains balanced. 
+     * @implSpec <code>sort</code> runs in O(nlog(n)) time if the tree remains balanced. 
      */
     public static <T extends Comparable<? super T>> List<T> sort(List<T> lst) {
-        throw new UnsupportedOperationException();
+        BinarySearchTree<T> tree = new BinarySearchTree<T>();
+        for (int i = 0; i < lst.size(); i++) {
+            tree.insert(lst.get(i));
+        }
+        return tree.toList();
     }
-
     ///// Part 4: Deletion
   
     /*
